@@ -1,81 +1,45 @@
-
 import { useEffect, useState } from 'react'
 import { QRCodeSVG } from 'qrcode.react'
 import { startHost } from './remote'
 
-const ROOM = Math.random()
-  .toString(36)
-  .slice(2, 6)
-  .toUpperCase()
+const ROOM = Math.random().toString(36).slice(2, 6).toUpperCase()
 
 export default function PhoneConnection() {
   const [connected, setConnected] = useState(false)
   const [error, setError] = useState('')
 
+  // Connect laptop to the Socket.IO relay.
   useEffect(() => {
     return startHost(ROOM, setConnected, setError)
   }, [])
 
-  const base = (
-    import.meta.env.VITE_PUBLIC_URL ||
-    window.location.origin
-  ).replace(/\/$/, '')
-
+  // Always use the website currently hosting the game.
+  // On Vercel, this becomes your Vercel domain.
+  // On localhost, this becomes your local development URL.
+  const base = window.location.origin.replace(/\/$/, '')
   const phoneUrl = `${base}/?c=${ROOM}`
 
   return (
-    <div className="phantom-room-layout">
-      {/* LEFT: ROOM INFORMATION */}
-      <div className="phantom-room-info">
-        <div className="phantom-room-label">
-          JOIN ROOM
-        </div>
+    <div className="phone-connection">
+      <div className="phone-connection-info">
+        <p className="phone-connection-label">JOIN ROOM</p>
 
-        <div className="phantom-room-code">
-          {ROOM}
-        </div>
+        <h2 className="phone-connection-room">{ROOM}</h2>
 
-        <p className="phantom-room-instructions">
-          Scan the code with your iPhone
-          to connect your controller.
+        <p className="phone-connection-status">
+          {connected ? 'PHONE CONNECTED' : 'WAITING FOR PHONE'}
         </p>
 
-        <div
-          className="phantom-room-status"
-          style={{
-            color: connected ? '#90dba8' : '#bea6ae',
-          }}
-        >
-          <span
-            className="phantom-status-dot"
-            style={{
-              background: connected
-                ? '#7dd99c'
-                : '#bf886e',
-            }}
-          />
-
-          {connected
-            ? 'PHONE CONNECTED'
-            : 'WAITING FOR CONTROLLER'}
-        </div>
-
-        {error && (
-          <p className="phantom-room-error">
-            {error}
-          </p>
-        )}
+        {error && <p className="phone-connection-error">{error}</p>}
       </div>
 
-      {/* RIGHT: QR CODE */}
-      <div className="phantom-room-qr">
+      <div className="phone-connection-qr">
         <QRCodeSVG
           value={phoneUrl}
-          size={175}
+          size={144}
           bgColor="#ffffff"
-          fgColor="#171015"
-          level="H"
-          marginSize={1}
+          fgColor="#000000"
+          marginSize={2}
         />
       </div>
     </div>
