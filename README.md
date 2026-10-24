@@ -1,4 +1,4 @@
-# PHANTOM: The Last Ritual 👻
+# PHANTOM: The Last Ritual 
 
 **A 3D horror game where your smartphone becomes your controller.**
 
