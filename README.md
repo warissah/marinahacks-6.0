@@ -1,5 +1,7 @@
 # PHANTOM: The Last Ritual 
 
+Deployed :  https://marinahacks-6-0.vercel.app/
+
 **A 3D horror game where your smartphone becomes your controller.**
 
 PHANTOM: The Last Ritual is a first-person horror game set inside a haunted mansion. Players must explore the house, uncover clues, collect a mysterious artifact, and complete a ritual to banish the ghost before running out of lives.
